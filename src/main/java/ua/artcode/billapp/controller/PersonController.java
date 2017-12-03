@@ -1,7 +1,6 @@
 package ua.artcode.billapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +19,12 @@ import java.util.List;
 @RestController
 public class PersonController {
 
-    @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    public PersonController(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
 
     // /person?name=Serhii
     // /peson/{name} -> PathParam
@@ -30,7 +33,7 @@ public class PersonController {
         List<Person> byLastName = personRepository.findByFirstName(name);
 
         if(byLastName == null || byLastName.isEmpty()){
-            return new ResponseEntity<>(new ResponseMessage("User not found", ""), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ResponseMessage("Customer not found", ""), HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(byLastName.get(0), HttpStatus.OK);

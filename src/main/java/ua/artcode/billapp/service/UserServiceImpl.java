@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import ua.artcode.billapp.exception.AppException;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.model.BillStatus;
-import ua.artcode.billapp.model.User;
+import ua.artcode.billapp.model.Customer;
 import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.UserRepository;
 
@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<Bill> getOpened(User user) throws AppException {
-        LOG.info("user with id " + user.getId() + " is getting his opened bills");
-        return billRepository.findByCustomerAndBillStatus(user, BillStatus.OPENED);
+    public List<Bill> getOpened(Customer customer) throws AppException {
+        LOG.info("customer with id " + customer.getId() + " is getting his opened bills");
+        return billRepository.findByCustomerAndBillStatus(customer, BillStatus.OPENED);
     }
 }

@@ -9,17 +9,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import ua.artcode.billapp.model.AccountType;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.model.BillStatus;
-import ua.artcode.billapp.model.User;
+import ua.artcode.billapp.model.Customer;
 import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by serhii on 03.12.17.
@@ -27,7 +24,7 @@ import static org.junit.Assert.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class UserServiceTest {
+public class CustomerServiceTest {
 
     @Autowired
     private UserService userService;
@@ -37,26 +34,25 @@ public class UserServiceTest {
 
     @Autowired
     private UserRepository userRepository;
-    private User user;
+    private Customer customer;
 
     @Before
     public void setUp() throws Exception {
-        this.user = new User();
-        User user = this.user;
-        user.setAccountType(AccountType.USER);
-        user.setActivated(true);
-        user.setName("Ivan");
-        user.setPhone("380932321223");
-        user.setPass("1234");
+        this.customer = new Customer();
+        Customer customer = this.customer;
+        customer.setActivated(true);
+        customer.setName("Ivan");
+        customer.setPhone("380932321223");
+        customer.setPass("1234");
 
-        userRepository.save(user);
+        userRepository.save(customer);
 
         Bill bill = new Bill();
         bill.setBillId("1234123412341234");
         bill.setBillStatus(BillStatus.OPENED);
-        bill.setCustomer(user);
+        bill.setCustomer(customer);
         bill.setStart(LocalDateTime.now());
-        bill.setProvider(user);
+        bill.setProvider(customer);
         bill.setPrice(1000);
         bill.setWarrantyPeriodDays(30);
         bill.setTitle("Phone Purchase");
@@ -72,7 +68,7 @@ public class UserServiceTest {
 
     @Test
     public void getOpened() throws Exception {
-        List<Bill> billList = userService.getOpened(user);
+        List<Bill> billList = userService.getOpened(customer);
 
         Assert.assertThat(billList, Matchers.notNullValue());
         Assert.assertThat(billList, Matchers.hasSize(1));

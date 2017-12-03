@@ -4,7 +4,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.model.BillStatus;
-import ua.artcode.billapp.model.User;
+import ua.artcode.billapp.model.Customer;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ import java.util.List;
 @Repository
 public interface BillRepository extends PagingAndSortingRepository<Bill,Long> {
 
-    List<Bill> findByCustomerAndBillStatus(User customer, BillStatus billStatus);
+    List<Bill> findByCustomerAndBillStatus(Customer customer, BillStatus billStatus);
 
 }

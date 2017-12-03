@@ -7,22 +7,18 @@ import java.time.LocalDateTime;
  * Created by serhii on 03.12.17.
  */
 @Entity
-public class Bill {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Bill extends IdEntity {
 
     @Column(unique = true, nullable = false)
     private String billId;
 
     @ManyToOne()
     @JoinColumn(name = "provider_id", referencedColumnName = "id")
-    private User provider;
+    private Customer provider;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private User customer;
+    private Customer customer;
 
     @Column
     private int warrantyPeriodDays;
@@ -48,15 +44,6 @@ public class Bill {
     public Bill() {
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getBillId() {
         return billId;
     }
@@ -65,19 +52,19 @@ public class Bill {
         this.billId = billId;
     }
 
-    public User getProvider() {
+    public Customer getProvider() {
         return provider;
     }
 
-    public void setProvider(User provider) {
+    public void setProvider(Customer provider) {
         this.provider = provider;
     }
 
-    public User getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(User customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
