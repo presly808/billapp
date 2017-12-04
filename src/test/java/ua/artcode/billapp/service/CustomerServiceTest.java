@@ -24,7 +24,7 @@ import java.util.List;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class CustomerServiceTest {
+public class  CustomerServiceTest {
 
     @Autowired
     private UserService userService;
