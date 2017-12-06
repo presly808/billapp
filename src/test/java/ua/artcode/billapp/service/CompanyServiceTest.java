@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import ua.artcode.billapp.exception.AppException;
 import ua.artcode.billapp.model.*;
 import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.CompanyRepository;
@@ -78,13 +79,25 @@ public class CompanyServiceTest {
         bill.setTitle("Phone Purchase");
 
         billRepository.save(bill);
+
+        Bill closeBill = new Bill();
+        closeBill.setBillId("wlkeflsle");
+        closeBill.setBillStatus(BillStatus.CLOSED);
+        closeBill.setCustomer(customer);
+        closeBill.setStart(LocalDateTime.now());
+        closeBill.setProvider(company);
+        closeBill.setPrice(1000);
+        closeBill.setWarrantyPeriodDays(30);
+        closeBill.setTitle("Phone Purchase");
+
+        billRepository.save(closeBill);
     }
 
     @After
     public void tearDown() throws Exception {
         billRepository.deleteAll();
         companyRepository.deleteAll();
-        companyRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
@@ -93,6 +106,14 @@ public class CompanyServiceTest {
 
         Assert.assertThat(billList, Matchers.notNullValue());
         Assert.assertThat(billList, Matchers.hasSize(1));
+    }
+
+    @Test
+    public void getClosed() throws AppException {
+        List<Bill> closeBillList = companyService.getClosedBills(company);
+
+        Assert.assertThat(closeBillList, Matchers.notNullValue());
+        Assert.assertThat(closeBillList, Matchers.hasSize(1));
     }
 
 }

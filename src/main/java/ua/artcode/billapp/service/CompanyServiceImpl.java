@@ -35,4 +35,10 @@ public class CompanyServiceImpl implements CompanyService {
         LOGGER.info("Company with id " + company.getId() + " is getting its opened bills.");
         return billRepository.findByProviderAndBillStatus(company, BillStatus.OPENED);
     }
+
+    @Override
+    public List<Bill> getClosedBills(Company company) throws AppException {
+        LOGGER.info("Company with id " + company.getId() + " is getting its closed bills.");
+        return billRepository.findByProviderAndBillStatus(company, BillStatus.CLOSED);
+    }
 }

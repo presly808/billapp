@@ -12,4 +12,6 @@ import java.util.List;
 public interface CompanyService {
 
     List<Bill> getOpenedBills(Company company) throws AppException;
+
+    List<Bill> getClosedBills(Company company) throws AppException;
 }
