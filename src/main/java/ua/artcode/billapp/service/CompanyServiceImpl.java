@@ -30,6 +30,7 @@ public class CompanyServiceImpl implements CompanyService {
         this.billRepository = billRepository;
     }
 
+
     @Override
     public List<Bill> getOpenedBills(Company company) throws AppException {
         LOGGER.info("Company with id " + company.getId() + " is getting its opened bills.");
@@ -40,5 +41,10 @@ public class CompanyServiceImpl implements CompanyService {
     public List<Bill> getClosedBills(Company company) throws AppException {
         LOGGER.info("Company with id " + company.getId() + " is getting its closed bills.");
         return billRepository.findByProviderAndBillStatus(company, BillStatus.CLOSED);
+    }
+
+    @Override
+    public Company getCompanyById(Long id) {
+        return companyRepository.findOne(id);
     }
 }

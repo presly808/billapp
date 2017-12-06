@@ -116,4 +116,12 @@ public class CompanyServiceTest {
         Assert.assertThat(closeBillList, Matchers.hasSize(1));
     }
 
+    @Test
+    public void getCompanyBuId(){
+        long id = 1;
+        Company geterCompany = companyRepository.findOne(id);
+        Assert.assertThat(geterCompany, Matchers.notNullValue());
+        Assert.assertEquals(geterCompany, company);
+    }
+
 }
