@@ -28,7 +28,7 @@ public class CompanyController {
         try {
             newBill = companyService.createBill(bill);
         } catch (AppException e) {
-            return new ResponseEntity<>("error", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("AppException", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(newBill, HttpStatus.OK);
 
