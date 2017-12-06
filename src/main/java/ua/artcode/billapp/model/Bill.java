@@ -14,7 +14,7 @@ public class Bill extends IdEntity {
 
     @ManyToOne()
     @JoinColumn(name = "provider_id", referencedColumnName = "id")
-    private Customer provider;
+    private Company provider;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
@@ -52,11 +52,11 @@ public class Bill extends IdEntity {
         this.billId = billId;
     }
 
-    public Customer getProvider() {
+    public Company getProvider() {
         return provider;
     }
 
-    public void setProvider(Customer provider) {
+    public void setProvider(Company provider) {
         this.provider = provider;
     }
 
