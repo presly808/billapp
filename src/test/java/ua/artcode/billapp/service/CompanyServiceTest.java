@@ -36,8 +36,16 @@ public class CompanyServiceTest {
     private UserRepository userRepository;
     private Customer customer;
 
+    private Address address;
+
     @Before
     public void setUp() throws Exception {
+
+        this.address = new Address();
+        Address address = this.address;
+        address.setStreet("test");
+        address.setNumber("test");
+        address.setCity("test");
 
         this.customer = new Customer();
         Customer customer = this.customer;
@@ -49,6 +57,7 @@ public class CompanyServiceTest {
         this.company = new Company();
         Company company = this.company;
         company.setActivated(true);
+        company.setAddress(address);
         company.setAdditionalInfo("TestInfo");
         company.setType("Shop");
         company.setCompanyName("TestCompany");

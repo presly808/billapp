@@ -12,7 +12,7 @@ public class Company extends BaseAccount {
     @Column()
     private String companyName;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
