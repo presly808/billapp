@@ -1,0 +1,12 @@
+{
+
+  "billId": "bill",
+  "provider": null,
+  "customer": null,
+  "warrantyPeriodDays": 10,
+  "title": "new bill",
+  "description": "some description",
+  "price": 100,
+
+  "end": null
+}

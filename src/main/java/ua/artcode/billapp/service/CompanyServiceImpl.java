@@ -36,6 +36,7 @@ public class CompanyServiceImpl implements CompanyService {
         LOG.info("Bill " + bill.getTitle() +  " start created");
         bill.setStart(LocalDateTime.now());
         bill.setBillId(UUID.randomUUID().toString());
+        bill.setBillStatus(BillStatus.OPENED);
         billRepository.save(bill);
         return bill;
     }
