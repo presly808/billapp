@@ -39,7 +39,7 @@ public class CustomerServiceTest {
 
     private Customer customer;
 
-    private Company provider;
+    private Company company;
 
     @Before
     public void setUp() throws Exception {
@@ -47,38 +47,37 @@ public class CustomerServiceTest {
         Customer customer = this.customer;
         customer.setActivated(true);
         customer.setName("Ivan");
-        customer.setPhone("380932321223");
+        customer.setPhone("380932323203");
         customer.setPass("1234");
-
-        userRepository.save(customer);
-
-        Bill bill = new Bill();
-        bill.setBillId("1234123412341234");
-        bill.setBillStatus(BillStatus.OPENED);
-        bill.setCustomer(customer);
-        bill.setStart(LocalDateTime.now());
-        bill.setProvider(provider);
-        bill.setPrice(1000);
-        bill.setWarrantyPeriodDays(30);
-        bill.setTitle("Phone Purchase");
-
-        billRepository.save(bill);
 
         Address address = new Address();
         address.setCity("kiev");
         address.setStreet("ushakova");
         address.setNumber("12A");
 
-        this.provider = new Company();
-        Company provider = this.provider;
-        provider.setType("Market");
-        provider.setAdditionalInfo("some info");
-        provider.setAddress(address);
-        provider.setCompanyName("DDS");
-        provider.setPass("123");
-        provider.setPhone("380966967325");
+        this.company = new Company();
+        Company company = this.company;
+        company.setActivated(true);
+        company.setCompanyName("TestName");
+        company.setPhone("380932321293");
+        company.setPass("1234");
 
-        companyRepository.save(provider);
+        Bill bill = new Bill();
+        bill.setBillId("1234123412341234");
+        bill.setBillStatus(BillStatus.OPENED);
+        bill.setCustomer(customer);
+        bill.setStart(LocalDateTime.now());
+        bill.setProvider(company);
+        bill.setPrice(1000);
+        bill.setWarrantyPeriodDays(30);
+        bill.setTitle("Phone Purchase");
+
+        userRepository.save(customer);
+        companyRepository.save(company);
+        billRepository.save(bill);
+
+
+
     }
 
     @After

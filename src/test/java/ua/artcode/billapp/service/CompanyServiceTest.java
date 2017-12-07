@@ -16,12 +16,15 @@ import ua.artcode.billapp.repository.CompanyRepository;
 import ua.artcode.billapp.repository.UserRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class CompanyServiceTest {
+
+
     @Autowired
     private CompanyService companyService;
 
@@ -30,43 +33,54 @@ public class CompanyServiceTest {
 
     @Autowired
     private CompanyRepository companyRepository;
+    private Company company;
 
     @Autowired
     private UserRepository userRepository;
     private Customer customer;
-    private Company provider;
+
+    private Address address;
 
     @Before
     public void setUp() throws Exception {
 
+        this.address = new Address();
+        Address address = this.address;
+        address.setStreet("test");
+        address.setNumber("test");
+        address.setCity("test");
+
         this.customer = new Customer();
         Customer customer = this.customer;
         customer.setActivated(true);
-        customer.setName("Ivan1");
-        customer.setPhone("380932321223");
+        customer.setName("Ivan");
+        customer.setPhone("380932321203");
         customer.setPass("1234");
 
+        this.company = new Company();
+        Company company = this.company;
+        company.setActivated(true);
+        company.setAddress(address);
+        company.setAdditionalInfo("TestInfo");
+        company.setType("Shop");
+        company.setCompanyName("TestCompany");
+        company.setPhone("380932321223");
+        company.setPass("1234");
+
+        companyRepository.save(company);
         userRepository.save(customer);
 
-        Address address = new Address();
-        address.setCity("kiev");
-        address.setStreet("ushakova");
-        address.setNumber("12A");
+        Bill bill = new Bill();
+        bill.setBillId("1234123412341234");
+        bill.setBillStatus(BillStatus.OPENED);
+        bill.setCustomer(customer);
+        bill.setStart(LocalDateTime.now());
+        bill.setProvider(company);
+        bill.setPrice(1000);
+        bill.setWarrantyPeriodDays(30);
+        bill.setTitle("Phone Purchase");
 
-        this.provider = new Company();
-        Company provider = this.provider;
-        provider.setType("Market");
-        provider.setAdditionalInfo("some info");
-        provider.setAddress(address);
-        provider.setCompanyName("DDS");
-        provider.setPass("123");
-        provider.setPhone("380966967325");
-
-        companyRepository.save(provider);
-
-
-
-
+        billRepository.save(bill);
     }
 
     @After
@@ -77,13 +91,21 @@ public class CompanyServiceTest {
     }
 
     @Test
+    public void getOpened() throws Exception {
+        List<Bill> billList = companyService.getOpenedBills(company);
+
+        Assert.assertThat(billList, Matchers.notNullValue());
+        Assert.assertThat(billList, Matchers.hasSize(1));
+    }
+
+    @Test
     public void createBillTest() throws AppException {
         Bill bill = new Bill();
         bill.setBillId("1234123412341234");
         bill.setBillStatus(BillStatus.OPENED);
         bill.setCustomer(customer);
         bill.setStart(LocalDateTime.now());
-        bill.setProvider(provider);
+        bill.setProvider(company);
         bill.setPrice(1000);
         bill.setWarrantyPeriodDays(30);
         bill.setTitle("Phone Purchase");

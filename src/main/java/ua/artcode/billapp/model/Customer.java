@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("CUSTOMER")
 public class Customer extends BaseAccount {
 
-    @Column(nullable = false)
+    @Column
     private String name;
 
     public Customer() {
