@@ -25,11 +25,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import ua.artcode.billapp.model.Person;
-import ua.artcode.billapp.repository.PersonRepository;
+import ua.artcode.billapp.model.Customer;
+import ua.artcode.billapp.repository.CustomerRepository;
 
-import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -43,23 +41,25 @@ public class ApplicationTests {
 	private MockMvc mockMvc;
 
 	@Autowired
-	private PersonRepository personRepository;
+	private CustomerRepository customerRepository;
 
 	@Before
 	public void deleteAllBeforeTests() throws Exception {
-		personRepository.deleteAll();
+		customerRepository.deleteAll();
+
 	}
 
 	@Test
 	public void shouldReturnOneUser() throws Exception {
-		Person entity = new Person();
-		entity.setFirstName("Ivan");
-		entity.setLastName("Golov");
-		personRepository.save(entity);
+		Customer entity = new Customer();
+		entity.setName("Ivan");
+		entity.setPass("ololo");
+		entity.setPhone("123456789012");
+		customerRepository.save(entity);
 
-		mockMvc.perform(get("/person").param("name","Ivan"))
+		mockMvc.perform(get("/customer").param("name","Ivan"))
 				.andDo(print()).andExpect(status().isOk())
-				.andExpect(jsonPath("$.firstName").value("Ivan"));
+				.andExpect(jsonPath("$.name").value("Ivan"));
 
 	}
 
