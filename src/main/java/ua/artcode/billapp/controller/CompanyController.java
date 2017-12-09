@@ -39,4 +39,18 @@ public class CompanyController {
         return new ResponseEntity<>(closeBills, HttpStatus.OK);
 
     }
+
+    @RequestMapping(path = "/get-opened-bills", method = RequestMethod.GET)
+    public ResponseEntity<Object> getOpenedBills(@RequestParam(name = "id") Long id) {
+        Company company = companyService.getCompanyById(id);
+        List<Bill> closeBills = null;
+        try {
+            closeBills = companyService.getOpenedBills(company);
+        } catch (AppException e) {
+            return new ResponseEntity<>(new ResponseMessage("AppException", ""), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(closeBills, HttpStatus.OK);
+
+    }
 }

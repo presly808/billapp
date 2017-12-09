@@ -1,62 +1,54 @@
-package ua.artcode.billapp.service;
+package ua.artcode.billapp.controller;
 
-import org.hamcrest.Matchers;
+
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import ua.artcode.billapp.exception.AppException;
+import org.springframework.test.web.servlet.MockMvc;
 import ua.artcode.billapp.model.*;
 import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.CompanyRepository;
 import ua.artcode.billapp.repository.UserRepository;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-@SpringBootTest
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @RunWith(SpringRunner.class)
-public class CompanyServiceTest {
-
+@SpringBootTest
+@AutoConfigureMockMvc
+public class CompanyControllerTest {
 
     @Autowired
-    private CompanyService companyService;
+    private MockMvc mockMvc;
+
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @Autowired
     private BillRepository billRepository;
 
     @Autowired
-    private CompanyRepository companyRepository;
+    private UserRepository userRepository;
     private Company company;
 
-    @Autowired
-    private UserRepository userRepository;
-    private Customer customer;
-
-    private Address address;
-    private Company company1;
-
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
 
-        this.address = new Address();
-        Address address = this.address;
+        Address address = new Address();
         address.setStreet("test");
         address.setNumber("test");
         address.setCity("test");
 
 
-        Address address1 = new Address();
-        address1.setStreet("test");
-        address1.setNumber("test");
-        address1.setCity("test");
-
-        this.customer = new Customer();
-        Customer customer = this.customer;
+        Customer customer  = new Customer();
         customer.setActivated(true);
         customer.setName("Ivan");
         customer.setPhone("380932321203");
@@ -72,19 +64,7 @@ public class CompanyServiceTest {
         company.setPhone("380932321223");
         company.setPass("1234");
 
-
-        this.company1 = new Company();
-        Company company1 = this.company1;
-        company1.setActivated(true);
-        company1.setAddress(address1);
-        company1.setAdditionalInfo("TestInfo");
-        company1.setType("Shop");
-        company1.setCompanyName("TestCompany");
-        company1.setPhone("380932321224");
-        company1.setPass("1234");
-
         companyRepository.save(company);
-        companyRepository.save(company1);
         userRepository.save(customer);
 
         Bill bill = new Bill();
@@ -110,37 +90,30 @@ public class CompanyServiceTest {
         closeBill.setTitle("Phone Purchase");
 
         billRepository.save(closeBill);
+
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown(){
         billRepository.deleteAll();
-        companyRepository.deleteAll();
         userRepository.deleteAll();
+        companyRepository.deleteAll();
     }
 
     @Test
-    public void getOpened() throws Exception {
-        List<Bill> billList = companyService.getOpenedBills(company);
+    public void getClosedBillsTest() throws Exception {
 
-        Assert.assertThat(billList, Matchers.notNullValue());
-        Assert.assertThat(billList, Matchers.hasSize(1));
+        mockMvc.perform(get("/get-closed-bills").param("id", "1"))
+                .andDo(print())
+                .andExpect(status().isOk());
+
     }
+
 
     @Test
-    public void getClosed() throws AppException {
-        List<Bill> closeBillList = companyService.getClosedBills(company);
-
-        Assert.assertThat(closeBillList, Matchers.notNullValue());
-        Assert.assertThat(closeBillList, Matchers.hasSize(1));
+    public void getOpenBillsTest() throws Exception {
+        mockMvc.perform(get("/get-opened-bills").param("id", "3"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
-
-    @Test
-    public void getCompanyBuId(){
-        long id = 2;
-        Company geterCompany = companyRepository.findOne(id);
-        Assert.assertThat(geterCompany, Matchers.notNullValue());
-        Assert.assertEquals(geterCompany, company1);
-    }
-
 }
