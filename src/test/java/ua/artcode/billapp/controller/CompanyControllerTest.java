@@ -1,6 +1,6 @@
 package ua.artcode.billapp.controller;
 
-
+import com.google.gson.Gson;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,12 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.UserRepository;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class CompanyControllerTest {
 
-    private static final String MOCK_JSON_PATH = "/mockBillJSON.json";
+
 
     @Autowired
     private MockMvc mockMvc;
@@ -38,8 +32,24 @@ public class CompanyControllerTest {
 
     @Autowired
     private BillRepository billRepository;
+    private Bill bill;
+    private String json;
 
     @Before
+    public void setUp(){
+        Gson gson = new Gson();
+
+        this.bill = new Bill();
+        Bill bill = this.bill;
+        bill.setBillId("bill");
+        bill.setWarrantyPeriodDays(10);
+        bill.setTitle("new title");
+        bill.setPrice(100);
+
+        json = gson.toJson(bill);
+    }
+
+    @After
     public void tearDown() throws Exception{
         userRepository.deleteAll();
         billRepository.deleteAll();
@@ -47,21 +57,9 @@ public class CompanyControllerTest {
 
     @Test
     public void shouldReturnCreatedBill() throws Exception {
-        String path = new File(CompanyControllerTest.class
-                .getResource(MOCK_JSON_PATH)
-                .getFile())
-                .getAbsolutePath();
-        File json = new File(path);
-        StringBuffer buff = new StringBuffer();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(json)));
-        String temp;
-        while ((temp = reader.readLine()) != null){
-            buff.append(temp + "\n");
-        }
-
         mockMvc.perform(post("/create-bill")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(buff.toString()))
+                .content(json))
                 .andExpect(status().isOk());
     }
 
