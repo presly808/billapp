@@ -103,7 +103,10 @@ public class CompanyControllerTest {
     @Test
     public void getClosedBillsTest() throws Exception {
 
-        mockMvc.perform(get("/get-closed-bills").param("id", "1"))
+         String  id = companyRepository.findCompanyByCompanyName("TestCompany").getId().toString();
+
+
+        mockMvc.perform(get("/get-closed-bills").param("id", id))
                 .andDo(print())
                 .andExpect(status().isOk());
 
@@ -112,7 +115,8 @@ public class CompanyControllerTest {
 
     @Test
     public void getOpenBillsTest() throws Exception {
-        mockMvc.perform(get("/get-opened-bills").param("id", "3"))
+        String  id = companyRepository.findCompanyByCompanyName("TestCompany").getId().toString();
+        mockMvc.perform(get("/get-opened-bills").param("id", id))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

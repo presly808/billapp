@@ -33,7 +33,7 @@ public class CompanyController {
         try {
             closeBills = companyService.getClosedBills(company);
         } catch (AppException e) {
-            return new ResponseEntity<>(new ResponseMessage("AppException", ""), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseMessage(e.toString(), ""), HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(closeBills, HttpStatus.OK);
@@ -47,7 +47,7 @@ public class CompanyController {
         try {
             closeBills = companyService.getOpenedBills(company);
         } catch (AppException e) {
-            return new ResponseEntity<>(new ResponseMessage("AppException", ""), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseMessage(e.toString(), ""), HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(closeBills, HttpStatus.OK);
