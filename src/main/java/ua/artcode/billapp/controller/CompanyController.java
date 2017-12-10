@@ -1,5 +1,7 @@
 package ua.artcode.billapp.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,8 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyController.class);
+
 
     //localhost:8080/get-closed-bills?id=1
     @RequestMapping(path = "/get-closed-bills", method = RequestMethod.GET)
@@ -31,6 +35,7 @@ public class CompanyController {
         Company company = companyService.getCompanyById(id);
         List<Bill> closeBills = null;
         try {
+            LOGGER.info("Start search closed bills");
             closeBills = companyService.getClosedBills(company);
         } catch (AppException e) {
             return new ResponseEntity<>(new ResponseMessage(e.toString(), ""), HttpStatus.BAD_REQUEST);
@@ -45,6 +50,7 @@ public class CompanyController {
         Company company = companyService.getCompanyById(id);
         List<Bill> closeBills = null;
         try {
+            LOGGER.info("Start search closed bills");
             closeBills = companyService.getOpenedBills(company);
         } catch (AppException e) {
             return new ResponseEntity<>(new ResponseMessage(e.toString(), ""), HttpStatus.BAD_REQUEST);
