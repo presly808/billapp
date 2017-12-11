@@ -1,6 +1,5 @@
-package ua.artcode.billapp;
+package ua.artcode.billapp.config;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ContentType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
