@@ -46,7 +46,7 @@ jacocoTestReport {
 jacocoTestCoverageVerification {
     violationRules {
         rule {
-            excludes = ['*view.*', '*exclude.*']
+            excludes = ['*Application','*view.*', '*exclude.*','*model.*','*dto.*','*exception.*']
             element = "CLASS"
             limit {
                 counter = "LINE"
