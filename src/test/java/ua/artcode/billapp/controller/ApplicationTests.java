@@ -28,6 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import ua.artcode.billapp.model.Customer;
 import ua.artcode.billapp.repository.CustomerRepository;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -63,4 +64,21 @@ public class ApplicationTests {
 
 	}
 
+	@Test
+	public void shouldReturnTwoUsers() throws Exception {
+		Customer entity = new Customer();
+		entity.setName("Oleg");
+		entity.setPass("pass");
+		entity.setPhone("123456789012");
+		customerRepository.save(entity);
+		Customer entity2 = new Customer();
+		entity2.setName("Andrii");
+		entity2.setPass("pass");
+		entity2.setPhone("123456789013");
+		customerRepository.save(entity2);
+
+		mockMvc.perform(get("/customers"))
+				.andDo(print()).andExpect(status().isOk())
+				.andExpect(jsonPath("$.*", hasSize(2)));
+	}
 }
