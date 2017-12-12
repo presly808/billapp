@@ -11,9 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.UserRepository;
+
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,15 +35,15 @@ public class CompanyControllerTest {
 
     @Autowired
     private BillRepository billRepository;
-    private Bill bill;
+
     private String json;
 
     @Before
     public void setUp(){
         Gson gson = new Gson();
 
-        this.bill = new Bill();
-        Bill bill = this.bill;
+        Bill bill = new Bill();
+
         bill.setBillId("bill");
         bill.setWarrantyPeriodDays(10);
         bill.setTitle("new title");
@@ -57,10 +60,14 @@ public class CompanyControllerTest {
 
     @Test
     public void shouldReturnCreatedBill() throws Exception {
-        mockMvc.perform(post("/create-bill")
+        String expected = "new title";
+      MvcResult result = mockMvc.perform(post("/create-bill")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()).andReturn();
+      String body = result.getResponse().getContentAsString();
+      assertTrue(body.contains(expected));
+      assertNotNull(body);
     }
 
 }

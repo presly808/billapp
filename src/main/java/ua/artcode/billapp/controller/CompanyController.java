@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.artcode.billapp.exception.AppException;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.service.CompanyService;
-import ua.artcode.billapp.service.UserServiceImpl;
+
 
 
 @RestController

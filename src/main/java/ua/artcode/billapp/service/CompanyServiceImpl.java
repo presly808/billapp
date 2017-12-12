@@ -8,10 +8,7 @@ import ua.artcode.billapp.exception.AppException;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.model.BillStatus;
 import ua.artcode.billapp.model.Company;
-import ua.artcode.billapp.repository.*;
 import ua.artcode.billapp.repository.BillRepository;
-import ua.artcode.billapp.repository.CompanyRepository;
-
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,21 +20,14 @@ public class CompanyServiceImpl implements CompanyService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    private final CompanyRepository companyRepository;
-
     private final BillRepository billRepository;
-
-    private final UserRepository userRepository;
 
 
     @Autowired
-    public CompanyServiceImpl(CompanyRepository companyRepository,
-                              BillRepository billRepository,
-                              UserRepository userRepository) {
-        this.companyRepository = companyRepository;
+    public CompanyServiceImpl(BillRepository billRepository) {
         this.billRepository = billRepository;
-        this.userRepository = userRepository;
     }
+
 
     @Override
     public List<Bill> getOpenedBills(Company company) throws AppException {

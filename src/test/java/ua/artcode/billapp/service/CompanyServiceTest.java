@@ -2,7 +2,6 @@ package ua.artcode.billapp.service;
 
 import org.hamcrest.Matchers;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,11 +13,9 @@ import ua.artcode.billapp.model.*;
 import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.CompanyRepository;
 import ua.artcode.billapp.repository.UserRepository;
-
+import static org.junit.Assert.*;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -94,8 +91,8 @@ public class CompanyServiceTest {
     public void getOpened() throws Exception {
         List<Bill> billList = companyService.getOpenedBills(company);
 
-        Assert.assertThat(billList, Matchers.notNullValue());
-        Assert.assertThat(billList, Matchers.hasSize(1));
+        assertThat(billList, Matchers.notNullValue());
+        assertThat(billList, Matchers.hasSize(1));
     }
 
     @Test
@@ -112,8 +109,8 @@ public class CompanyServiceTest {
 
         Bill regBill = companyService.createBill(bill);
 
-        Assert.assertThat(regBill, Matchers.notNullValue());
-        Assert.assertThat(regBill, Matchers.isA(Bill.class));
+        assertThat(regBill, Matchers.notNullValue());
+        assertThat(regBill, Matchers.isA(Bill.class));
 
     }
 
