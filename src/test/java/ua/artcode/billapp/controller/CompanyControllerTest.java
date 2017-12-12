@@ -2,6 +2,7 @@ package ua.artcode.billapp.controller;
 
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import ua.artcode.billapp.model.*;
 import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.CompanyRepository;
@@ -37,7 +39,7 @@ public class CompanyControllerTest {
 
     @Autowired
     private UserRepository userRepository;
-    private Company company;
+    String expected;
 
     @Before
     public void setUp(){
@@ -54,8 +56,7 @@ public class CompanyControllerTest {
         customer.setPhone("380932321203");
         customer.setPass("1234");
 
-        this.company = new Company();
-        Company company = this.company;
+        Company company = new Company();
         company.setActivated(true);
         company.setAddress(address);
         company.setAdditionalInfo("TestInfo");
@@ -63,6 +64,8 @@ public class CompanyControllerTest {
         company.setCompanyName("TestCompany");
         company.setPhone("380932321223");
         company.setPass("1234");
+
+        expected = company.getPhone();
 
         companyRepository.save(company);
         userRepository.save(customer);
@@ -98,6 +101,7 @@ public class CompanyControllerTest {
         billRepository.deleteAll();
         userRepository.deleteAll();
         companyRepository.deleteAll();
+        expected = null;
     }
 
     @Test
@@ -106,9 +110,13 @@ public class CompanyControllerTest {
          String  id = companyRepository.findCompanyByCompanyName("TestCompany").getId().toString();
 
 
-        mockMvc.perform(get("/get-closed-bills").param("id", id))
+    MvcResult result = mockMvc.perform(get("/get-closed-bills").param("id", id))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andReturn();
+    String str = result.getResponse().getContentAsString();
+        Assert.assertTrue(str.contains(expected));
+        Assert.assertNotNull(str);
 
     }
 
@@ -116,8 +124,12 @@ public class CompanyControllerTest {
     @Test
     public void getOpenBillsTest() throws Exception {
         String  id = companyRepository.findCompanyByCompanyName("TestCompany").getId().toString();
-        mockMvc.perform(get("/get-opened-bills").param("id", id))
+       MvcResult result = mockMvc.perform(get("/get-opened-bills").param("id", id))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()).andReturn();
+
+       String str = result.getResponse().getContentAsString();
+        Assert.assertTrue(str.contains(expected));
+        Assert.assertNotNull(str);
     }
 }

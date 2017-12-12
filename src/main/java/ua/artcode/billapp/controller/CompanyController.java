@@ -11,14 +11,12 @@ import ua.artcode.billapp.exception.AppException;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.model.Company;
 import ua.artcode.billapp.service.CompanyService;
-
-import javax.xml.ws.Response;
 import java.util.List;
 
 @RestController
 public class CompanyController {
 
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyController.class);
     private CompanyService companyService;
 
     @Autowired
@@ -26,7 +24,7 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyController.class);
+
 
 
     //localhost:8080/get-closed-bills?id=1
