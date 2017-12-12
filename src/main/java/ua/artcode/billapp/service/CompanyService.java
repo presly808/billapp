@@ -9,7 +9,6 @@ import java.util.List;
 import ua.artcode.billapp.exception.AppException;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.model.Company;
-import ua.artcode.billapp.model.Customer;
 
 /**
  * Created by serhii on 03.12.17.
