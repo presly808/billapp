@@ -29,6 +29,7 @@ import ua.artcode.billapp.model.Customer;
 import ua.artcode.billapp.repository.CustomerRepository;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -75,6 +76,7 @@ public class ApplicationTests {
 		entity2.setName("Andrii");
 		entity2.setPass("pass");
 		entity2.setPhone("123456789013");
+		assertNotNull("Customer repository not found!", customerRepository);
 		customerRepository.save(entity2);
 
 		mockMvc.perform(get("/customers"))
