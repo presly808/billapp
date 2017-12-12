@@ -38,7 +38,7 @@ public class CompanyServiceTest {
     private Customer customer;
 
     private Address address;
-    private Company company1;
+
 
     @Before
     public void setUp() throws Exception {
@@ -49,11 +49,6 @@ public class CompanyServiceTest {
         address.setNumber("test");
         address.setCity("test");
 
-
-        Address address1 = new Address();
-        address1.setStreet("test");
-        address1.setNumber("test");
-        address1.setCity("test");
 
         this.customer = new Customer();
         Customer customer = this.customer;
@@ -72,19 +67,7 @@ public class CompanyServiceTest {
         company.setPhone("380932321223");
         company.setPass("1234");
 
-
-        this.company1 = new Company();
-        Company company1 = this.company1;
-        company1.setActivated(true);
-        company1.setAddress(address1);
-        company1.setAdditionalInfo("TestInfo");
-        company1.setType("Shop");
-        company1.setCompanyName("TestCompany");
-        company1.setPhone("380932321224");
-        company1.setPass("1234");
-
         companyRepository.save(company);
-        companyRepository.save(company1);
         userRepository.save(customer);
 
         Bill bill = new Bill();
@@ -137,10 +120,10 @@ public class CompanyServiceTest {
 
     @Test
     public void getCompanyBuId(){
-        long id = 2;
+        Long id = companyRepository.findCompanyByCompanyName("TestCompany").getId();
         Company geterCompany = companyRepository.findOne(id);
         Assert.assertThat(geterCompany, Matchers.notNullValue());
-        Assert.assertEquals(geterCompany, company1);
+        Assert.assertEquals(geterCompany, company);
     }
 
 }

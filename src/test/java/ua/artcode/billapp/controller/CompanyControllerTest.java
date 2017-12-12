@@ -39,10 +39,11 @@ public class CompanyControllerTest {
 
     @Autowired
     private UserRepository userRepository;
-    String expected;
+    private String expected;
 
     @Before
     public void setUp(){
+        expected = "380932321223";
 
         Address address = new Address();
         address.setStreet("test");
@@ -65,7 +66,7 @@ public class CompanyControllerTest {
         company.setPhone("380932321223");
         company.setPass("1234");
 
-        expected = company.getPhone();
+
 
         companyRepository.save(company);
         userRepository.save(customer);
