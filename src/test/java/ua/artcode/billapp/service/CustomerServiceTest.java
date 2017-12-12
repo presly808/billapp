@@ -29,7 +29,7 @@ import java.util.List;
 public class CustomerServiceTest {
 
     @Autowired
-    private UserService userService;
+    private CustomerService customerService;
 
     @Autowired
     private BillRepository billRepository;
@@ -83,7 +83,7 @@ public class CustomerServiceTest {
 
     @Test
     public void getOpened() throws Exception {
-        List<Bill> billList = userService.getOpened(customer);
+        List<Bill> billList = customerService.getOpenedBills(customer);
 
         Assert.assertThat(billList, Matchers.notNullValue());
         Assert.assertThat(billList, Matchers.hasSize(1));
