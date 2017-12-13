@@ -1,6 +1,6 @@
 package ua.artcode.billapp.controller;
 
-
+import com.google.gson.Gson;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,16 +9,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import ua.artcode.billapp.model.*;
+import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.repository.BillRepository;
-import ua.artcode.billapp.repository.CompanyRepository;
 import ua.artcode.billapp.repository.UserRepository;
-
+import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import ua.artcode.billapp.model.*;
+import ua.artcode.billapp.repository.CompanyRepository;
 import java.time.LocalDateTime;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,6 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CompanyControllerTest {
+
+
 
     @Autowired
     private MockMvc mockMvc;
@@ -40,9 +44,22 @@ public class CompanyControllerTest {
     @Autowired
     private UserRepository userRepository;
     private String expected;
+    private String json;
 
     @Before
     public void setUp(){
+
+        Gson gson = new Gson();
+
+        Bill createBill = new Bill();
+
+        createBill.setBillId("bill");
+        createBill.setWarrantyPeriodDays(10);
+        createBill.setTitle("new title");
+        createBill.setPrice(100);
+
+        json = gson.toJson(createBill);
+
         expected = "380932321223";
 
         Address address = new Address();
@@ -132,5 +149,17 @@ public class CompanyControllerTest {
        String str = result.getResponse().getContentAsString();
         Assert.assertTrue(str.contains(expected));
         Assert.assertNotNull(str);
+    }
+
+    @Test
+    public void shouldReturnCreatedBill() throws Exception {
+        String expected = "new title";
+        MvcResult result = mockMvc.perform(post("/create-bill")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isOk()).andReturn();
+        String body = result.getResponse().getContentAsString();
+        assertTrue(body.contains(expected));
+        assertNotNull(body);
     }
 }

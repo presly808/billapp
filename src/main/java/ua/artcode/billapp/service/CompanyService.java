@@ -13,6 +13,8 @@ public interface CompanyService {
 
     List<Bill> getOpenedBills(Company company) throws AppException;
 
+    Bill createBill(Bill bill) throws AppException;
+
     List<Bill> getClosedBills(Company company) throws AppException;
 
     Company getCompanyById(Long id);

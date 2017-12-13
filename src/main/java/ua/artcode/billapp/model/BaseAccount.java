@@ -1,5 +1,7 @@
 package ua.artcode.billapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -14,6 +16,7 @@ public class BaseAccount  extends IdEntity {
     @Column(nullable = false, unique = true, length = 12)
     protected String phone;
 
+    @JsonIgnore
     @Column(nullable = false)
     protected String pass;
 
