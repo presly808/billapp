@@ -78,6 +78,18 @@ public class CompanyServiceTest {
         bill.setTitle("Phone Purchase");
 
         billRepository.save(bill);
+
+        Bill closeBill = new Bill();
+        closeBill.setBillId("wlkeflsle");
+        closeBill.setBillStatus(BillStatus.CLOSED);
+        closeBill.setCustomer(customer);
+        closeBill.setStart(LocalDateTime.now());
+        closeBill.setProvider(company);
+        closeBill.setPrice(1000);
+        closeBill.setWarrantyPeriodDays(30);
+        closeBill.setTitle("Phone Purchase");
+
+        billRepository.save(closeBill);
     }
 
     @After
@@ -112,6 +124,22 @@ public class CompanyServiceTest {
         assertThat(regBill, Matchers.notNullValue());
         assertThat(regBill, Matchers.isA(Bill.class));
 
+    }
+
+    @Test
+    public void getClosed() throws AppException {
+        List<Bill> closeBillList = companyService.getClosedBills(company);
+
+        assertThat(closeBillList, Matchers.notNullValue());
+        assertThat(closeBillList, Matchers.hasSize(1));
+    }
+
+    @Test
+    public void getCompanyBuId(){
+        Long id = companyRepository.findCompanyByCompanyName("TestCompany").getId();
+        Company geterCompany = companyRepository.findOne(id);
+        assertThat(geterCompany, Matchers.notNullValue());
+        assertEquals(geterCompany, company);
     }
 
 }

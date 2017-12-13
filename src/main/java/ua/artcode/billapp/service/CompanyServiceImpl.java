@@ -9,6 +9,7 @@ import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.model.BillStatus;
 import ua.artcode.billapp.model.Company;
 import ua.artcode.billapp.repository.BillRepository;
+import ua.artcode.billapp.repository.CompanyRepository;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,11 +21,13 @@ public class CompanyServiceImpl implements CompanyService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
+    private final CompanyRepository companyRepository;
+
     private final BillRepository billRepository;
 
-
     @Autowired
-    public CompanyServiceImpl(BillRepository billRepository) {
+    public CompanyServiceImpl(CompanyRepository companyRepository, BillRepository billRepository) {
+        this.companyRepository = companyRepository;
         this.billRepository = billRepository;
     }
 
@@ -46,4 +49,15 @@ public class CompanyServiceImpl implements CompanyService {
         return bill;
     }
 
+
+    @Override
+    public List<Bill> getClosedBills(Company company) throws AppException {
+        LOGGER.info("Company with id " + company.getId() + " is getting its closed bills.");
+        return billRepository.findByProviderAndBillStatus(company, BillStatus.CLOSED);
+    }
+
+    @Override
+    public Company getCompanyById(Long id) {
+        return companyRepository.findOne(id);
+    }
 }
