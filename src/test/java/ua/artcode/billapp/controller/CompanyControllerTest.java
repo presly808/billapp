@@ -2,7 +2,6 @@ package ua.artcode.billapp.controller;
 
 import com.google.gson.Gson;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -133,8 +132,8 @@ public class CompanyControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
     String str = result.getResponse().getContentAsString();
-        Assert.assertTrue(str.contains(expected));
-        Assert.assertNotNull(str);
+        assertTrue(str.contains(expected));
+        assertNotNull(str);
 
     }
 
@@ -147,8 +146,8 @@ public class CompanyControllerTest {
                 .andExpect(status().isOk()).andReturn();
 
        String str = result.getResponse().getContentAsString();
-        Assert.assertTrue(str.contains(expected));
-        Assert.assertNotNull(str);
+        assertTrue(str.contains(expected));
+        assertNotNull(str);
     }
 
     @Test
