@@ -2,18 +2,18 @@ package ua.artcode.billapp.service;
 
 import org.hamcrest.Matchers;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import ua.artcode.billapp.exception.AppException;
 import ua.artcode.billapp.model.*;
 import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.CompanyRepository;
 import ua.artcode.billapp.repository.UserRepository;
-
+import static org.junit.Assert.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -83,7 +83,7 @@ public class CompanyServiceTest {
     @After
     public void tearDown() throws Exception {
         billRepository.deleteAll();
-        companyRepository.deleteAll();
+        userRepository.deleteAll();
         companyRepository.deleteAll();
     }
 
@@ -91,8 +91,27 @@ public class CompanyServiceTest {
     public void getOpened() throws Exception {
         List<Bill> billList = companyService.getOpenedBills(company);
 
-        Assert.assertThat(billList, Matchers.notNullValue());
-        Assert.assertThat(billList, Matchers.hasSize(1));
+        assertThat(billList, Matchers.notNullValue());
+        assertThat(billList, Matchers.hasSize(1));
+    }
+
+    @Test
+    public void createBillTest() throws AppException {
+        Bill bill = new Bill();
+        bill.setBillId("1234123412341234");
+        bill.setBillStatus(BillStatus.OPENED);
+        bill.setCustomer(customer);
+        bill.setStart(LocalDateTime.now());
+        bill.setProvider(company);
+        bill.setPrice(1000);
+        bill.setWarrantyPeriodDays(30);
+        bill.setTitle("Phone Purchase");
+
+        Bill regBill = companyService.createBill(bill);
+
+        assertThat(regBill, Matchers.notNullValue());
+        assertThat(regBill, Matchers.isA(Bill.class));
+
     }
 
 }
