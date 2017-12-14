@@ -25,11 +25,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import ua.artcode.billapp.model.Person;
-import ua.artcode.billapp.repository.PersonRepository;
+import ua.artcode.billapp.model.Customer;
+import ua.artcode.billapp.repository.CustomerRepository;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -43,24 +43,44 @@ public class ApplicationTests {
 	private MockMvc mockMvc;
 
 	@Autowired
-	private PersonRepository personRepository;
+	private CustomerRepository customerRepository;
 
 	@Before
 	public void deleteAllBeforeTests() throws Exception {
-		personRepository.deleteAll();
+		customerRepository.deleteAll();
+
 	}
 
 	@Test
 	public void shouldReturnOneUser() throws Exception {
-		Person entity = new Person();
-		entity.setFirstName("Ivan");
-		entity.setLastName("Golov");
-		personRepository.save(entity);
+		Customer entity = new Customer();
+		entity.setName("Ivan");
+		entity.setPass("ololo");
+		entity.setPhone("123456789012");
+		customerRepository.save(entity);
 
-		mockMvc.perform(get("/person").param("name","Ivan"))
+		mockMvc.perform(get("/customer").param("name","Ivan"))
 				.andDo(print()).andExpect(status().isOk())
-				.andExpect(jsonPath("$.firstName").value("Ivan"));
+				.andExpect(jsonPath("$.name").value("Ivan"));
 
 	}
 
+	@Test
+	public void shouldReturnTwoUsers() throws Exception {
+		Customer entity = new Customer();
+		entity.setName("Oleg");
+		entity.setPass("pass");
+		entity.setPhone("123456789012");
+		customerRepository.save(entity);
+		Customer entity2 = new Customer();
+		entity2.setName("Andrii");
+		entity2.setPass("pass");
+		entity2.setPhone("123456789013");
+		assertNotNull("Customer repository not found!", customerRepository);
+		customerRepository.save(entity2);
+
+		mockMvc.perform(get("/customers"))
+				.andDo(print()).andExpect(status().isOk())
+				.andExpect(jsonPath("$.*", hasSize(2)));
+	}
 }
