@@ -27,6 +27,8 @@
             <f7-list>
               <f7-list-item title="To page 1" link='/page1/'></f7-list-item>
               <f7-list-item title="To page 2" link='/page2/'></f7-list-item>
+              <f7-list-item title="To page 3" link='/page3/'></f7-list-item>
+
             </f7-list>
           </f7-page>
         </f7-pages>
