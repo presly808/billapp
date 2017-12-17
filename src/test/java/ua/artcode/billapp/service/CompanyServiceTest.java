@@ -8,11 +8,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import ua.artcode.billapp.exception.AppException;
+import ua.artcode.billapp.exception.BillApplicationException;
 import ua.artcode.billapp.model.*;
 import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.CompanyRepository;
-import ua.artcode.billapp.repository.UserRepository;
+import ua.artcode.billapp.repository.CustomerRepository;
+
 import static org.junit.Assert.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,7 +34,7 @@ public class CompanyServiceTest {
     private Company company;
 
     @Autowired
-    private UserRepository userRepository;
+    private CustomerRepository customerRepository;
     private Customer customer;
 
     private Address address;
@@ -65,7 +66,7 @@ public class CompanyServiceTest {
         company.setPass("1234");
 
         companyRepository.save(company);
-        userRepository.save(customer);
+        customerRepository.save(customer);
 
         Bill bill = new Bill();
         bill.setBillId("1234123412341234");
@@ -95,7 +96,7 @@ public class CompanyServiceTest {
     @After
     public void tearDown() throws Exception {
         billRepository.deleteAll();
-        userRepository.deleteAll();
+        customerRepository.deleteAll();
         companyRepository.deleteAll();
     }
 
@@ -108,7 +109,7 @@ public class CompanyServiceTest {
     }
 
     @Test
-    public void createBillTest() throws AppException {
+    public void createBillTest() throws BillApplicationException {
         Bill bill = new Bill();
         bill.setBillId("1234123412341234");
         bill.setBillStatus(BillStatus.OPENED);
@@ -127,7 +128,7 @@ public class CompanyServiceTest {
     }
 
     @Test
-    public void getClosed() throws AppException {
+    public void getClosed() throws BillApplicationException {
         List<Bill> closeBillList = companyService.getClosedBills(company);
 
         assertThat(closeBillList, Matchers.notNullValue());

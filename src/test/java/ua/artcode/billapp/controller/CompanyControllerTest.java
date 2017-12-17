@@ -14,11 +14,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.repository.BillRepository;
-import ua.artcode.billapp.repository.UserRepository;
+
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import ua.artcode.billapp.model.*;
 import ua.artcode.billapp.repository.CompanyRepository;
+import ua.artcode.billapp.repository.CustomerRepository;
+
 import java.time.LocalDateTime;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -38,10 +40,11 @@ public class CompanyControllerTest {
     private CompanyRepository companyRepository;
 
     @Autowired
-    private BillRepository billRepository;
+    private CustomerRepository customerRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private BillRepository billRepository;
+
     private String expected;
     private String json;
 
@@ -85,7 +88,7 @@ public class CompanyControllerTest {
 
 
         companyRepository.save(company);
-        userRepository.save(customer);
+        customerRepository.save(customer);
 
         Bill bill = new Bill();
         bill.setBillId("1234123412341234");
@@ -116,7 +119,7 @@ public class CompanyControllerTest {
     @After
     public void tearDown(){
         billRepository.deleteAll();
-        userRepository.deleteAll();
+        customerRepository.deleteAll();
         companyRepository.deleteAll();
         expected = null;
     }

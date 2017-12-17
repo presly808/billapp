@@ -48,7 +48,6 @@ public class ApplicationTests {
 	@Before
 	public void deleteAllBeforeTests() throws Exception {
 		customerRepository.deleteAll();
-
 	}
 
 	@Test
@@ -61,7 +60,7 @@ public class ApplicationTests {
 
 		mockMvc.perform(get("/customer").param("name","Ivan"))
 				.andDo(print()).andExpect(status().isOk())
-				.andExpect(jsonPath("$.name").value("Ivan"));
+				.andExpect(jsonPath("$.[0].name").value("Ivan"));
 
 	}
 

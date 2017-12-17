@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ua.artcode.billapp.model.*;
 import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.CompanyRepository;
-import ua.artcode.billapp.repository.UserRepository;
+import ua.artcode.billapp.repository.CustomerRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,7 +32,7 @@ public class CustomerServiceTest {
     private BillRepository billRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private CustomerRepository customerRepository;
 
     @Autowired
     private CompanyRepository companyRepository;
@@ -72,7 +72,7 @@ public class CustomerServiceTest {
         bill.setWarrantyPeriodDays(30);
         bill.setTitle("Phone Purchase");
 
-        userRepository.save(customer);
+        customerRepository.save(customer);
         companyRepository.save(company);
         billRepository.save(bill);
 
@@ -83,7 +83,7 @@ public class CustomerServiceTest {
     @After
     public void tearDown() throws Exception {
         billRepository.deleteAll();
-        userRepository.deleteAll();
+        customerRepository.deleteAll();
         companyRepository.deleteAll();
     }
 

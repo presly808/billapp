@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.artcode.billapp.exception.AppException;
+import ua.artcode.billapp.exception.BillApplicationException;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.model.BillStatus;
 import ua.artcode.billapp.model.Company;
@@ -33,14 +33,14 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public List<Bill> getOpenedBills(Company company) throws AppException {
+    public List<Bill> getOpenedBills(Company company) throws BillApplicationException {
         LOGGER.info("Company with id " + company.getId() + " is getting its opened bills.");
         return billRepository.findByProviderAndBillStatus(company, BillStatus.OPENED);
 
     }
 
     @Override
-    public Bill createBill(Bill bill) throws AppException {
+    public Bill createBill(Bill bill) throws BillApplicationException {
         LOGGER.info("Bill " + bill.getTitle() + " start created");
         bill.setStart(LocalDateTime.now());
         bill.setBillId(UUID.randomUUID().toString());
@@ -51,7 +51,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public List<Bill> getClosedBills(Company company) throws AppException {
+    public List<Bill> getClosedBills(Company company) throws BillApplicationException {
         LOGGER.info("Company with id " + company.getId() + " is getting its closed bills.");
         return billRepository.findByProviderAndBillStatus(company, BillStatus.CLOSED);
     }
