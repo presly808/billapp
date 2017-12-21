@@ -2,18 +2,19 @@
     <f7-page hide-bars-on-scroll=''>
         <f7-navbar back-link='Back' title='Registration' sliding=''>
         </f7-navbar>
+
         <f7-list form>
             <!-- Text Input -->
             <f7-list-item>
                 <f7-label>Phone</f7-label>
                 <f7-input type="text" v-model="phone" placeholder="380(XX)-XXX-XX-XX"/>
-                <p style="color: #f00" v-show="!validation.phone">Invalid phone</p>
             </f7-list-item>
 
             <!-- Password -->
             <f7-list-item>
                 <f7-label>Password</f7-label>
                 <f7-input type="password" v-model="password" placeholder="Password"/>
+
             </f7-list-item>
 
             <!-- Switch -->
@@ -45,9 +46,11 @@
                 <f7-input type="textarea" v-model="additionalInfo" placeholder="Additional"></f7-input>
             </f7-list-item>
         </f7-list>
-            <!--todo not work keyUp-->
-        <f7-button @click="register" @keyup.enter="register">Register</f7-button>
+        <f7-button @click="register">Register</f7-button>
+
+
     </f7-page>
+
 </template>
 
 <script>
@@ -57,11 +60,11 @@
         name: "registration",
         data() {
             return {
+
                 showCompanyBar: false,
                 phone: "",
                 password: '',
                 companyName: "",
-                //todo зробити 3 окремих філда на адрес
                 address: {
                     city: "",
                     street: "",
@@ -87,30 +90,37 @@
                             contentType: "application/json"
                         }
                     );
-                    //todo не стирається з інпутів ніхера
-                    this.phone = "";
-                    this.password = "";
-                    this.companyName = "";
-                    this.address = {
-                        city: "",
-                        street: "",
-                        number: ""
-                    };
-                    this.activity = "";
-                    this.additionalInfo = "";
-
                     console.log("ok");
                 } else {
-                    console.log("ne ok");
+                    // //todo other validation
+                    if (!this.validation.phone) {
+                        this.$f7.alert("Sorry! " + this.phone +
+                            " is not valid. Must be 380XXXXXXXXX");
+                    }
+                    if (!this.validation.password) {
+                        this.$f7.alert("Sorry! " + this.password +
+                            " is not valid. Pass can`t start from gap, and must have length 4-12");
+                    }
+                    if (!this.validation.companyName) {
+                        this.$f7.alert("Sorry! " + this.companyName +
+                            " is not valid. Must have length 1-15");
+                    }
+                    if (!this.validation.activity) {
+                        this.$f7.alert("Sorry! " + this.activity +
+                            " is not valid. It must bee word");
+                    }
                 }
-            }
+            },
+
         },
         computed: {
-            //todo прикрутити нормально ерори на картинці
-            //todo доробити валідатори
+
             validation: function () {
                 return {
-                    phone: /^\d{12}$/.test(this.phone)
+                    phone: /^[380]\d{11}$/.test(this.phone),
+                    password: /^[^\s]{4,12}$/.test(this.password),
+                    companyName: !this.showCompanyBar ? true : /^\w{1,15}$/.test(this.companyName),
+                    activity: !this.showCompanyBar ? true : /^\w$/.test(this.activity)
                 }
             },
             isValid: function () {
@@ -120,9 +130,6 @@
                 })
             }
         }
-
-
-//todo не бачить стилів
     }
 </script>
 
