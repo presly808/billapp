@@ -1,7 +1,7 @@
 <template lang="pug">
   f7-page(hide-bars-on-scroll='')
     f7-navbar(back-link='Back', title='Page 2', sliding='')
-    f7-block This is page 2.
+    f7-block This is page 2sdfs.
       br
       | Data-binding {{mydata}}!
 </template>
