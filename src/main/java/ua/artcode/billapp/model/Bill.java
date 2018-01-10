@@ -1,7 +1,7 @@
 package ua.artcode.billapp.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 /**
  * Created by serhii on 03.12.17.
@@ -33,10 +33,10 @@ public class Bill extends IdEntity {
     private double price;
 
     @Column(nullable = false)
-    private LocalDateTime start;
+    private OffsetDateTime start;
 
     @Column
-    private LocalDateTime end;
+    private OffsetDateTime end;
 
     @Enumerated(value = EnumType.STRING)
     private BillStatus billStatus;
@@ -100,19 +100,19 @@ public class Bill extends IdEntity {
         this.price = price;
     }
 
-    public LocalDateTime getStart() {
+    public OffsetDateTime getStart() {
         return start;
     }
 
-    public void setStart(LocalDateTime start) {
+    public void setStart(OffsetDateTime start) {
         this.start = start;
     }
 
-    public LocalDateTime getEnd() {
+    public OffsetDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDateTime end) {
+    public void setEnd(OffsetDateTime end) {
         this.end = end;
     }
 

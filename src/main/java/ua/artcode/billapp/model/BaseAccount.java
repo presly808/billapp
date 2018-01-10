@@ -1,7 +1,5 @@
 package ua.artcode.billapp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 /**
@@ -16,9 +14,8 @@ public class BaseAccount  extends IdEntity {
     @Column(nullable = false, unique = true, length = 12)
     protected String phone;
 
-    @JsonIgnore
     @Column(nullable = false)
-    protected String pass;
+    protected String password;
 
     @Column(nullable = false)
     protected boolean activated = false;
@@ -35,12 +32,12 @@ public class BaseAccount  extends IdEntity {
         this.phone = phone;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public boolean isActivated() {

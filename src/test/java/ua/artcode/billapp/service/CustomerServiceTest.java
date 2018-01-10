@@ -14,7 +14,7 @@ import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.CompanyRepository;
 import ua.artcode.billapp.repository.CustomerRepository;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 /**
@@ -42,13 +42,13 @@ public class CustomerServiceTest {
     private Company company;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         this.customer = new Customer();
         Customer customer = this.customer;
         customer.setActivated(true);
         customer.setName("Ivan");
         customer.setPhone("380932323203");
-        customer.setPass("1234");
+        customer.setPassword("1234");
 
         Address address = new Address();
         address.setCity("kiev");
@@ -60,13 +60,13 @@ public class CustomerServiceTest {
         company.setActivated(true);
         company.setCompanyName("TestName");
         company.setPhone("380932321293");
-        company.setPass("1234");
+        company.setPassword("1234");
 
         Bill bill = new Bill();
         bill.setBillId("1234123412341234");
         bill.setBillStatus(BillStatus.OPENED);
         bill.setCustomer(customer);
-        bill.setStart(LocalDateTime.now());
+        bill.setStart(OffsetDateTime.now());
         bill.setProvider(company);
         bill.setPrice(1000);
         bill.setWarrantyPeriodDays(30);
@@ -81,7 +81,7 @@ public class CustomerServiceTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         billRepository.deleteAll();
         customerRepository.deleteAll();
         companyRepository.deleteAll();

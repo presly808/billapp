@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.artcode.billapp.exception.BillApplicationException;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.model.BillStatus;
 import ua.artcode.billapp.model.Customer;
@@ -35,20 +34,20 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> getCustomerByName(String name) throws BillApplicationException {
+    public List<Customer> getCustomerByName(String name) {
         LOG.info(String.format("Looking for customer with name \"%s\"...", name));
         return customerRepository.getCustomerByName(name);
     }
 
     @Override
-    public List<Customer> getAllCustomers() throws BillApplicationException {
+    public List<Customer> getAllCustomers() {
         LOG.info("Retrieving customers list...");
         List customers = (List) customerRepository.findAll();
         return customers;
     }
 
     @Override
-    public List<Bill> getOpenedBills(Customer customer) throws BillApplicationException {
+    public List<Bill> getOpenedBills(Customer customer) {
         LOG.info(String.format("Customer (ID: %s) is getting his opened bills...", customer.getId()));
         return billRepository.findByCustomerAndBillStatus(customer, BillStatus.OPENED);
     }

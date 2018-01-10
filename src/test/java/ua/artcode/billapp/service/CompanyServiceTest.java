@@ -14,9 +14,11 @@ import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.CompanyRepository;
 import ua.artcode.billapp.repository.CustomerRepository;
 
-import static org.junit.Assert.*;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -40,7 +42,7 @@ public class CompanyServiceTest {
     private Address address;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
         this.address = new Address();
         Address address = this.address;
@@ -53,7 +55,7 @@ public class CompanyServiceTest {
         customer.setActivated(true);
         customer.setName("Ivan");
         customer.setPhone("380932321203");
-        customer.setPass("1234");
+        customer.setPassword("1234");
 
         this.company = new Company();
         Company company = this.company;
@@ -63,7 +65,7 @@ public class CompanyServiceTest {
         company.setType("Shop");
         company.setCompanyName("TestCompany");
         company.setPhone("380932321223");
-        company.setPass("1234");
+        company.setPassword("1234");
 
         companyRepository.save(company);
         customerRepository.save(customer);
@@ -72,7 +74,7 @@ public class CompanyServiceTest {
         bill.setBillId("1234123412341234");
         bill.setBillStatus(BillStatus.OPENED);
         bill.setCustomer(customer);
-        bill.setStart(LocalDateTime.now());
+        bill.setStart(OffsetDateTime.now());
         bill.setProvider(company);
         bill.setPrice(1000);
         bill.setWarrantyPeriodDays(30);
@@ -84,7 +86,7 @@ public class CompanyServiceTest {
         closeBill.setBillId("wlkeflsle");
         closeBill.setBillStatus(BillStatus.CLOSED);
         closeBill.setCustomer(customer);
-        closeBill.setStart(LocalDateTime.now());
+        closeBill.setStart(OffsetDateTime.now());
         closeBill.setProvider(company);
         closeBill.setPrice(1000);
         closeBill.setWarrantyPeriodDays(30);
@@ -94,7 +96,7 @@ public class CompanyServiceTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         billRepository.deleteAll();
         customerRepository.deleteAll();
         companyRepository.deleteAll();
@@ -114,7 +116,7 @@ public class CompanyServiceTest {
         bill.setBillId("1234123412341234");
         bill.setBillStatus(BillStatus.OPENED);
         bill.setCustomer(customer);
-        bill.setStart(LocalDateTime.now());
+        bill.setStart(OffsetDateTime.now());
         bill.setProvider(company);
         bill.setPrice(1000);
         bill.setWarrantyPeriodDays(30);

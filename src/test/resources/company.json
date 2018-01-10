@@ -1,0 +1,15 @@
+[
+  {
+    "companyName": "TestCompany",
+    "phone": "380932321223",
+    "password": "password",
+    "activated": true,
+    "additionalInfo": "Some additional info...",
+    "type": "shop",
+    "address": {
+      "city": "Kyiv",
+      "street": "Street",
+      "number": "14A"
+    }
+  }
+]

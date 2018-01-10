@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.artcode.billapp.exception.BillApplicationException;
 import ua.artcode.billapp.model.Bill;
-import ua.artcode.billapp.service.CompanyService;
 import ua.artcode.billapp.model.Company;
+import ua.artcode.billapp.service.CompanyService;
 
 @RestController
 public class CompanyController {

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Ivan",
+    "password": "password",
+    "phone": "380672222222",
+    "activated": true
+  },
+  {
+    "name": "Andrii",
+    "password": "password",
+    "phone": "380671111111",
+    "activated": true
+  }
+]
