@@ -3,10 +3,7 @@ package ua.artcode.billapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.artcode.billapp.exception.BillApplicationException;
 import ua.artcode.billapp.model.Customer;
 import ua.artcode.billapp.service.CustomerService;
@@ -35,7 +32,7 @@ public class CustomerController {
     }
 
     @RequestMapping(path = "/customer/bills", method = RequestMethod.GET)
-    public ResponseEntity<Object> getOpenedBills(@RequestParam(name = "customer") Customer customer) throws BillApplicationException {
+    public ResponseEntity<Object> getOpenedBills(@RequestBody Customer customer) throws BillApplicationException {
         return new ResponseEntity<>(customerService.getOpenedBills(customer), HttpStatus.OK);
     }
 }

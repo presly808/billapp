@@ -4,15 +4,17 @@
     "warrantyPeriodDays": 10,
     "title": "some_bill",
     "price": 100,
-    "billStatus": "OPENED"
+    "start": "2017-12-03T10:15:30",
+    "billStatus": "OPENED",
+    "description": "fuck off, Gradle code coverage!"
   },
   {
     "billId": "bill2",
     "warrantyPeriodDays": 15,
     "title": "some_bill #2",
     "price": 1000,
-    "start": "2017-12-03T10:15:30.103+02:00",
-    "end": "2018-10-03T10:15:30.103+02:00",
+    "start": "2017-12-03T10:15:30",
+    "end": "2018-10-03T10:15:30",
     "billStatus": "CLOSED"
   },
   {
@@ -20,7 +22,7 @@
     "warrantyPeriodDays": 20,
     "title": "some_bill #3",
     "price": 10000,
-    "start": "2017-12-03T10:15:30.103+02:00",
+    "start": "2017-12-03T10:15:30",
     "billStatus": "OPENED"
   }
 ]

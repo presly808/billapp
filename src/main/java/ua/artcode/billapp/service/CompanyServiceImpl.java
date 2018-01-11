@@ -11,7 +11,7 @@ import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.CompanyRepository;
 
 import javax.transaction.Transactional;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,7 +42,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public Bill createBill(Bill bill) {
         LOGGER.info("Bill \"" + bill.getTitle() + "\" start date created");
-        bill.setStart(OffsetDateTime.now());
+        bill.setStart(LocalDateTime.now());
         bill.setBillId(UUID.randomUUID().toString());
         bill.setBillStatus(BillStatus.OPENED);
         billRepository.save(bill);

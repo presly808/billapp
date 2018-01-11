@@ -10,7 +10,7 @@ import ua.artcode.billapp.exception.BillApplicationException;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.model.Company;
 import ua.artcode.billapp.service.CompanyService;
-
+//TODO: paths is not ok. Ok?
 @RestController
 public class CompanyController {
 
@@ -31,6 +31,7 @@ public class CompanyController {
 
     }
 
+    //TODO: replace request param "id by "company" with type... Company.class (how unexpected, huh?)
     @RequestMapping(path = "/get-opened-bills", method = RequestMethod.GET)
     public ResponseEntity<Object> getOpenedBills(@RequestParam(name = "id") Long id) throws BillApplicationException {
         Company company = companyService.getCompanyById(id);

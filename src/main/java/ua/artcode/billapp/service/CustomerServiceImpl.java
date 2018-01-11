@@ -11,6 +11,7 @@ import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.CustomerRepository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,13 +43,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> getAllCustomers() {
         LOG.info("Retrieving customers list...");
-        List customers = (List) customerRepository.findAll();
+        List<Customer> customers = new ArrayList<>();
+        customerRepository.findAll().forEach(customers::add);
         return customers;
     }
 
     @Override
     public List<Bill> getOpenedBills(Customer customer) {
-        LOG.info(String.format("Customer (ID: %s) is getting his opened bills...", customer.getId()));
+        LOG.info(String.format("Customer (ID: %s) is getting his opened bills...", customer.getPhone()));
         return billRepository.findByCustomerAndBillStatus(customer, BillStatus.OPENED);
     }
 }
