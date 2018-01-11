@@ -14,9 +14,7 @@ import java.util.List;
  */
 @Repository
 public interface BillRepository extends PagingAndSortingRepository<Bill, Long> {
-
     List<Bill> findByCustomerAndBillStatus(Customer customer, BillStatus billStatus);
 
     List<Bill> findByProviderAndBillStatus(Company company, BillStatus billStatus);
-
 }

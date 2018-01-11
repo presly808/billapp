@@ -1,8 +1,9 @@
 package ua.artcode.billapp.service;
 
-import ua.artcode.billapp.exception.AppException;
+import ua.artcode.billapp.exception.BillApplicationException;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.model.Customer;
+
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  */
 
 public interface CustomerService {
-    List<Customer> getCustomerByName(String name) throws AppException;
-    List<Customer> getAllCustomers() throws AppException;
-    List<Bill> getOpenedBills(Customer customer) throws AppException;
+    List<Customer> getCustomerByName(String name) throws BillApplicationException;
+    List<Customer> getAllCustomers() throws BillApplicationException;
+    List<Bill> getOpenedBills(Customer customer) throws BillApplicationException;
 }

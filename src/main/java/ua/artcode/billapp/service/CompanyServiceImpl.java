@@ -4,12 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.artcode.billapp.exception.AppException;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.model.BillStatus;
 import ua.artcode.billapp.model.Company;
 import ua.artcode.billapp.repository.BillRepository;
 import ua.artcode.billapp.repository.CompanyRepository;
+
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,15 +33,15 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public List<Bill> getOpenedBills(Company company) throws AppException {
+    public List<Bill> getOpenedBills(Company company) {
         LOGGER.info("Company with id " + company.getId() + " is getting its opened bills.");
         return billRepository.findByProviderAndBillStatus(company, BillStatus.OPENED);
 
     }
 
     @Override
-    public Bill createBill(Bill bill) throws AppException {
-        LOGGER.info("Bill " + bill.getTitle() + " start created");
+    public Bill createBill(Bill bill) {
+        LOGGER.info("Bill \"" + bill.getTitle() + "\" start date created");
         bill.setStart(LocalDateTime.now());
         bill.setBillId(UUID.randomUUID().toString());
         bill.setBillStatus(BillStatus.OPENED);
@@ -51,7 +51,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public List<Bill> getClosedBills(Company company) throws AppException {
+    public List<Bill> getClosedBills(Company company) {
         LOGGER.info("Company with id " + company.getId() + " is getting its closed bills.");
         return billRepository.findByProviderAndBillStatus(company, BillStatus.CLOSED);
     }
