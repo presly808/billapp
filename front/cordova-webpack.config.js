@@ -4,8 +4,8 @@ var webpack = require('webpack')
 module.exports = {
     entry: './src/main.js',
     output: {
-        path: path.resolve(__dirname, './dist'),
-        publicPath: '/dist/',
+        path: path.resolve(__dirname, './hello/www'),
+        publicPath: '/',
         filename: 'build.js'
     },
     performance: {
@@ -41,7 +41,7 @@ module.exports = {
         }
     },
     devServer: {
-        port: 8081,
+        port: 8092,
         historyApiFallback: true,
         noInfo: true
     },
