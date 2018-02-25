@@ -23,7 +23,7 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @RequestMapping(path = "/get-closed-bills", method = RequestMethod.GET)
+    @RequestMapping(path = "/rest/get-closed-bills", method = RequestMethod.GET)
     public ResponseEntity<Object> getClosedBills(@RequestParam(name = "id") Long id) throws BillApplicationException {
         Company company = companyService.getCompanyById(id);
         LOGGER.info("Start search closed bills");
@@ -32,7 +32,7 @@ public class CompanyController {
     }
 
     //TODO: replace request param "id by "company" with type... Company.class (how unexpected, huh?)
-    @RequestMapping(path = "/get-opened-bills", method = RequestMethod.GET)
+    @RequestMapping(path = "/rest/get-opened-bills", method = RequestMethod.GET)
     public ResponseEntity<Object> getOpenedBills(@RequestParam(name = "id") Long id) throws BillApplicationException {
         Company company = companyService.getCompanyById(id);
         LOGGER.info("Start search closed bills");
@@ -40,7 +40,7 @@ public class CompanyController {
     }
 
     //create-bill?bill={jsonBody}
-    @RequestMapping(path = "/create-bill", method = RequestMethod.POST)
+    @RequestMapping(path = "/rest/create-bill", method = RequestMethod.POST)
     public ResponseEntity createBill(@RequestBody Bill bill) throws BillApplicationException {
         LOGGER.info("Start creating bill");
         return new ResponseEntity<>(companyService.createBill(bill), HttpStatus.OK);
