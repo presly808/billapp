@@ -17,12 +17,9 @@ import ua.artcode.billapp.security.model.JwtUser;
 import ua.artcode.billapp.service.CompanyService;
 import ua.artcode.billapp.service.CustomerService;
 
-import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

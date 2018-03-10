@@ -12,7 +12,6 @@ import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.model.Company;
 import ua.artcode.billapp.utils.TestDataHandler;
 
-import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

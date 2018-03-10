@@ -11,8 +11,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.utils.TestDataHandler;
 
-import java.io.IOException;
-
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

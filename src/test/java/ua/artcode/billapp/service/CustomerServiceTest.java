@@ -11,7 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.utils.TestDataHandler;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
