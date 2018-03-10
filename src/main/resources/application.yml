@@ -1,0 +1,14 @@
+management:
+  security:
+    enabled: true
+
+
+spring:
+  resources:
+    chain:
+      enabled: true
+
+security:
+  jwt:
+    token:
+      secret: sssshhhh!

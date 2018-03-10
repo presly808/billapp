@@ -11,8 +11,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import ua.artcode.billapp.model.Bill;
 import ua.artcode.billapp.utils.TestDataHandler;
 
-import java.io.IOException;
-
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -25,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CompanyControllerTest extends TestDataHandler {
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws Exception {
         initData();
     }
 
@@ -42,7 +40,11 @@ public class CompanyControllerTest extends TestDataHandler {
         billRepository.save(closedBill);
 
         String id = companyRepository.findCompanyByCompanyName("TestCompany").getId().toString();
-        MvcResult result = mockMvc.perform(get("/get-closed-bills").param("id", id))
+
+
+        MvcResult result = mockMvc.perform(get("/rest/get-closed-bills")
+                .header(AUTH_KEY, AUTH_VALUE_TOKEN + token)
+                .param("id", id))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -59,7 +61,9 @@ public class CompanyControllerTest extends TestDataHandler {
         billRepository.save(openedBill);
 
         String id = companyRepository.findCompanyByCompanyName("TestCompany").getId().toString();
-        MvcResult result = mockMvc.perform(get("/get-opened-bills").param("id", id))
+        MvcResult result = mockMvc.perform(get("/rest/get-opened-bills")
+                .header(AUTH_KEY, AUTH_VALUE_TOKEN + token)
+                .param("id", id))
                 .andDo(print())
                 .andExpect(status().isOk()).andReturn();
         String str = result.getResponse().getContentAsString();
@@ -73,7 +77,8 @@ public class CompanyControllerTest extends TestDataHandler {
         newBill.setStart(null);
         String requestBody = mapper.writeValueAsString(newBill);
 
-        MvcResult result = mockMvc.perform(post("/create-bill")
+        MvcResult result = mockMvc.perform(post("/rest/create-bill")
+                .header(AUTH_KEY, AUTH_VALUE_TOKEN + token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isOk()).andReturn();

@@ -21,17 +21,17 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @RequestMapping(path = "/customer", method = RequestMethod.GET)
+    @RequestMapping(path = "/rest/customer", method = RequestMethod.GET)
     public ResponseEntity<Object> getCustomerByName(@RequestParam(name = "name") String name) throws BillApplicationException {
         return new ResponseEntity<>(customerService.getCustomerByName(name), HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/customers", method = RequestMethod.GET)
+    @RequestMapping(path = "/rest/customers", method = RequestMethod.GET)
     public ResponseEntity<Object> getCustomers() throws BillApplicationException {
         return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/customer/bills", method = RequestMethod.GET)
+    @RequestMapping(path = "/rest/customer/bills", method = RequestMethod.GET)
     public ResponseEntity<Object> getOpenedBills(@RequestBody Customer customer) throws BillApplicationException {
         return new ResponseEntity<>(customerService.getOpenedBills(customer), HttpStatus.OK);
     }
