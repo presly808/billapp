@@ -4,12 +4,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ua.artcode.billapp.model.JwtUser;
+import ua.artcode.billapp.security.model.JwtUser;
 
 @Component
 public class JwtValidator {
 
-    @Value("${billapp.token.secret}")
+    @Value("${security.jwt.token.secret}")
     private String secret;
 
 

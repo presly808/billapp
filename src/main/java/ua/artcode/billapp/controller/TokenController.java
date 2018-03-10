@@ -1,7 +1,7 @@
 package ua.artcode.billapp.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ua.artcode.billapp.model.JwtUser;
+import ua.artcode.billapp.security.model.JwtUser;
 import ua.artcode.billapp.security.JwtGenerator;
 
 @RestController

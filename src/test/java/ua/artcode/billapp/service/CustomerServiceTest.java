@@ -23,7 +23,7 @@ import java.util.List;
 public class CustomerServiceTest extends TestDataHandler {
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws Exception {
         initData();
     }
 

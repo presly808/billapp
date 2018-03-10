@@ -1,4 +1,4 @@
-package ua.artcode.billapp.model;
+package ua.artcode.billapp.security.model;
 
 public class JwtUser {
 

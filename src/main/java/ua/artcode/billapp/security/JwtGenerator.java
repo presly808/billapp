@@ -5,16 +5,15 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ua.artcode.billapp.model.JwtUser;
+import ua.artcode.billapp.security.model.JwtUser;
 
 @Component
 public class JwtGenerator {
 
-    @Value("${billapp.token.secret}")
+    @Value("${security.jwt.token.secret}")
     private String secret;
 
     public String generate(JwtUser jwtUser) {
-        // TODO: setExpTime
         Claims claims = Jwts.claims().setSubject(jwtUser.getPhone());
         claims.put("userId", String.valueOf(jwtUser.getId()));
         claims.put("role", jwtUser.getRole());

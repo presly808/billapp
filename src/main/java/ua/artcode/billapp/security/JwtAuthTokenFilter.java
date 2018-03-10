@@ -3,7 +3,7 @@ package ua.artcode.billapp.security;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
-import ua.artcode.billapp.model.JwtAuthToken;
+import ua.artcode.billapp.security.model.JwtAuthToken;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -19,9 +19,10 @@ public class JwtAuthTokenFilter extends AbstractAuthenticationProcessingFilter {
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException {
 
-        String header = request.getHeader("Authorisation");
+        String header = request.getHeader("Authorization");
 
         if (header == null || !header.startsWith("Token ")){
             throw new RuntimeException("JWT Token is missing");

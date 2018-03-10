@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CustomerControllerTest extends TestDataHandler {
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws Exception {
         initData();
     }
 
@@ -37,14 +37,17 @@ public class CustomerControllerTest extends TestDataHandler {
 
     @Test
     public void shouldReturnOneUser() throws Exception {
-        mockMvc.perform(get("/customer").param("name","Ivan"))
+        mockMvc.perform(get("/rest/customer")
+                .header(AUTH_KEY, AUTH_VALUE_TOKEN + token)
+                .param("name","Ivan"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].name").value("Ivan"));
     }
 
     @Test
     public void shouldReturnTwoUsers() throws Exception {
-        mockMvc.perform(get("/customers"))
+        mockMvc.perform(get("/rest/customers")
+                .header(AUTH_KEY, AUTH_VALUE_TOKEN + token))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(2)));
     }
@@ -57,8 +60,9 @@ public class CustomerControllerTest extends TestDataHandler {
         billRepository.save(openedBill);
         String requestBody = mapper.writeValueAsString(testCustomers.get(0));
 
-        MvcResult result = mockMvc.perform(get("/customer/bills").
-                contentType(MediaType.APPLICATION_JSON)
+        MvcResult result = mockMvc.perform(get("/rest/customer/bills")
+                .header(AUTH_KEY, AUTH_VALUE_TOKEN + token)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(status().isOk()).andReturn();
 

@@ -23,7 +23,7 @@ import static org.junit.Assert.assertThat;
 public class CompanyServiceTest extends TestDataHandler {
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws Exception {
         initData();
     }
 

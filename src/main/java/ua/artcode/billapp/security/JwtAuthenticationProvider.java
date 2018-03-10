@@ -1,18 +1,16 @@
 package ua.artcode.billapp.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import ua.artcode.billapp.model.JwtAuthToken;
-import ua.artcode.billapp.model.JwtUser;
-import ua.artcode.billapp.model.JwtUserDetails;
+import ua.artcode.billapp.security.model.JwtAuthToken;
+import ua.artcode.billapp.security.model.JwtUser;
+import ua.artcode.billapp.security.model.JwtUserDetails;
 
 import java.util.List;
 

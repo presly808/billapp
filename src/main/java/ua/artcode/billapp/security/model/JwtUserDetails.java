@@ -1,4 +1,4 @@
-package ua.artcode.billapp.model;
+package ua.artcode.billapp.security.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

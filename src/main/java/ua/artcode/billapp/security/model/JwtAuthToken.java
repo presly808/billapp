@@ -1,4 +1,4 @@
-package ua.artcode.billapp.model;
+package ua.artcode.billapp.security.model;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

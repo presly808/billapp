@@ -9,3 +9,7 @@
    
 ### Run Project
   * run as pure spring boot app
+
+### Warnings
+  * for now token expires only after logout
+
